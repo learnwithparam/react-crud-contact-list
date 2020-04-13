@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const AddContact = () => {
   const [showForm, setShowForm] = useState(false);
 
-  const handleSumit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     // Save the new contact here
@@ -12,7 +12,7 @@ const AddContact = () => {
   return (
     <React.Fragment>
       {showForm ? (
-        <form onSubmit={handleSumit}>
+        <form onSubmit={handleSubmit}>
           <div>
             <label>Name</label>
             <input type="text" placeholder="contact name" name="Name" />
