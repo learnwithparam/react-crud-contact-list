@@ -1,4 +1,5 @@
 import React from "react";
+import AddContact from "./add-contact";
 
 const contacts = [
   {
@@ -30,7 +31,7 @@ const Contact = ({ name, email, phone }) => {
 const ContactList = () => {
   return (
     <section>
-      <button>Add new contact</button>
+      <AddContact />
       <ul>
         {contacts.map((contact) => {
           return <Contact key={contact.name} {...contact} />;
