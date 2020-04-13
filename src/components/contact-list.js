@@ -15,23 +15,28 @@ const contacts = [
 
 const Contact = ({ name, email, phone }) => {
   return (
-    <li key={name}>
+    <li>
       <h3>{name}</h3>
       <div>
         <strong>{email}</strong>
       </div>
       <div>{phone}</div>
+      <button>Edit</button>
+      <button>Remove</button>
     </li>
   );
 };
 
 const ContactList = () => {
   return (
-    <ul>
-      {contacts.map((contact) => {
-        return <Contact {...contact} />;
-      })}
-    </ul>
+    <section>
+      <button>Add new contact</button>
+      <ul>
+        {contacts.map((contact) => {
+          return <Contact key={contact.name} {...contact} />;
+        })}
+      </ul>
+    </section>
   );
 };
 
