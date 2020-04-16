@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import AddContact from "./add-contact";
 
-const contacts = [
+const initialContacts = [
   {
     name: "Vennila",
     phone: "+372 5993789",
@@ -29,14 +29,15 @@ const Contact = ({ name, email, phone }) => {
 };
 
 const ContactList = () => {
+  const [contacts, setContact] = useState(initialContacts);
   return (
     <section>
-      <AddContact />
-      <ul>
+      <AddContact setContact={setContact} />
+      <ol>
         {contacts.map((contact) => {
           return <Contact key={contact.name} {...contact} />;
         })}
-      </ul>
+      </ol>
     </section>
   );
 };

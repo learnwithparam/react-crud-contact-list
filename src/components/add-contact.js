@@ -1,12 +1,34 @@
 import React, { useState } from "react";
 
-const AddContact = () => {
+const AddContact = ({ setContact }) => {
   const [showForm, setShowForm] = useState(false);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Save the new contact here
+    if (name && email && phone) {
+      setContact((previousContacts) => {
+        return [
+          {
+            name,
+            phone,
+            email,
+          },
+          ...previousContacts,
+        ];
+      });
+
+      // Reset form values
+      setName("");
+      setPhone("");
+      setEmail("");
+
+      // Close the form after saving new contact
+      setShowForm(false);
+    }
   };
 
   return (
@@ -14,16 +36,40 @@ const AddContact = () => {
       {showForm ? (
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Name</label>
-            <input type="text" placeholder="contact name" name="Name" />
+            <label htmlFor="name">Name</label>
+            <input
+              required
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              placeholder="contact name"
+              name="Name"
+            />
           </div>
           <div>
-            <label>Phone</label>
-            <input type="text" placeholder="contact phone" name="Phone" />
+            <label htmlFor="phone">Phone</label>
+            <input
+              required
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              type="text"
+              placeholder="contact phone"
+              name="Phone"
+            />
           </div>
           <div>
-            <label>Email</label>
-            <input type="email" placeholder="contact Email" name="Email" />
+            <label htmlFor="email">Email</label>
+            <input
+              required
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="contact Email"
+              name="Email"
+            />
           </div>
           <button type="submit">Save contact</button>
           <button onClick={() => setShowForm(false)}>Discard</button>
