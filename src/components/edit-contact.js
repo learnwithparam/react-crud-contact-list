@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-const AddContact = ({ setContact }) => {
+const EditContact = ({ name = "", email = "", phone = "", setContact }) => {
   const [showForm, setShowForm] = useState(false);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState(name);
+  const [phone, setPhone] = useState(email);
+  const [email, setEmail] = useState(phone);
 
   const resetForm = () => {
     // Reset form values
@@ -79,10 +79,10 @@ const AddContact = ({ setContact }) => {
           <button onClick={resetForm}>Discard</button>
         </form>
       ) : (
-        <button onClick={() => setShowForm(true)}>Add new contact</button>
+        <button onClick={() => setShowForm(true)}>Edit contact</button>
       )}
     </React.Fragment>
   );
 };
 
-export default AddContact;
+export default EditContact;

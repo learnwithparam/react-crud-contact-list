@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AddContact from "./add-contact";
+import EditContact from "./edit-contact";
 
 const initialContacts = [
   {
@@ -14,7 +15,9 @@ const initialContacts = [
   },
 ];
 
-const Contact = ({ name, email, phone }) => {
+const Contact = (props) => {
+  const { name, email, phone } = props;
+
   return (
     <li>
       <h3>{name}</h3>
@@ -22,7 +25,7 @@ const Contact = ({ name, email, phone }) => {
         <strong>{email}</strong>
       </div>
       <div>{phone}</div>
-      <button>Edit</button>
+      <EditContact {...props} />
       <button>Remove</button>
     </li>
   );
@@ -35,7 +38,9 @@ const ContactList = () => {
       <AddContact setContact={setContact} />
       <ol>
         {contacts.map((contact) => {
-          return <Contact key={contact.name} {...contact} />;
+          return (
+            <Contact key={contact.name} {...contact} setContact={setContact} />
+          );
         })}
       </ol>
     </section>
