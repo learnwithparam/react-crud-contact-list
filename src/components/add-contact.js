@@ -39,46 +39,48 @@ const AddContactForm = ({ setContacts, setFormActive }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <div>
-        <label htmlFor="name">Name</label>
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          type="text"
-          placeholder="Contact name"
-          name="name"
-          id="name"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="phone">Phone</label>
-        <input
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          type="text"
-          placeholder="Contact phone"
-          name="phone"
-          id="phone"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          placeholder="Contact email"
-          name="email"
-          id="email"
-          required
-        />
-      </div>
-      <button type="submit">Save contact</button>
+    <React.Fragment>
+      <form onSubmit={onSubmit}>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            placeholder="Contact name"
+            name="name"
+            id="name"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="phone">Phone</label>
+          <input
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            type="text"
+            placeholder="Contact phone"
+            name="phone"
+            id="phone"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            placeholder="Contact email"
+            name="email"
+            id="email"
+            required
+          />
+        </div>
+        <button type="submit">Save contact</button>
+      </form>
       <button onClick={onDiscard}>Discard</button>
-    </form>
+    </React.Fragment>
   );
 };
 
