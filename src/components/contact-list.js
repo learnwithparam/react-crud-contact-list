@@ -6,12 +6,7 @@ const ContactList = ({ contacts, setContacts }) => {
     <ol>
       {contacts.map((contact, index) => {
         return (
-          <Contact
-            key={contact.name}
-            {...contact}
-            id={index}
-            setContacts={setContacts}
-          />
+          <Contact key={contact.id} {...contact} setContacts={setContacts} />
         );
       })}
     </ol>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import cloneDeep from "lodash/cloneDeep";
+import findIndex from "lodash/findIndex";
 import EditContact from "./edit-contact";
 
 const Contact = ({ setContacts, ...props }) => {
@@ -13,7 +14,8 @@ const Contact = ({ setContacts, ...props }) => {
     if (confirm) {
       setContacts((contacts) => {
         const clonedContacts = cloneDeep(contacts);
-        clonedContacts.splice(id, 1);
+        const index = findIndex(clonedContacts, { id });
+        clonedContacts.splice(index, 1);
         return clonedContacts;
       });
     }
