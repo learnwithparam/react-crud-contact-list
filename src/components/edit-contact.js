@@ -10,17 +10,17 @@ const EditContact = ({
   setContacts,
   setFormActive,
 }) => {
-  const [form, setForm] = useState({ name, phone, email });
+  const [formValues, setFormValues] = useState({ name, phone, email });
 
   const resetForm = () => {
-    setForm({ name: "", phone: "", email: "" });
+    setFormValues({ name: "", phone: "", email: "" });
     setFormActive(false);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const { name, email, phone } = form;
+    const { name, email, phone } = formValues;
     if (name && email && phone) {
       // Save the edited content
       setContacts((contacts) => {
@@ -44,9 +44,9 @@ const EditContact = ({
   const onChange = (e) => {
     const key = e.target.name;
     const value = e.target.value;
-    setForm((previousFormValue) => {
+    setFormValues((previousFormValues) => {
       return {
-        ...previousFormValue,
+        ...previousFormValues,
         [key]: value,
       };
     });
@@ -55,10 +55,11 @@ const EditContact = ({
   return (
     <React.Fragment>
       <form onSubmit={onSubmit}>
+        <h3>Edit contact</h3>
         <FormInput
           type="text"
           label="Name"
-          value={form.name}
+          value={formValues.name}
           onChange={onChange}
           placeholder="Contact name"
           required
@@ -66,7 +67,7 @@ const EditContact = ({
         <FormInput
           type="text"
           label="Phone"
-          value={form.phone}
+          value={formValues.phone}
           onChange={onChange}
           placeholder="Contact phone"
           required
@@ -74,12 +75,12 @@ const EditContact = ({
         <FormInput
           type="email"
           label="Email"
-          value={form.email}
+          value={formValues.email}
           onChange={onChange}
           placeholder="Contact email"
           required
         />
-        <button type="submit">Save</button>
+        <button type="submit">Save contact</button>
         <button type="button" onClick={onDiscard}>
           Discard
         </button>
