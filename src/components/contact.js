@@ -1,18 +1,29 @@
 import React, { useState } from "react";
+import cloneDeep from "lodash/cloneDeep";
 import EditContact from "./edit-contact";
 
 const Contact = ({ setContacts, ...props }) => {
   const { name, email, phone, id } = props;
   const [isFormActive, setFormActive] = useState(false);
 
+  const removeContact = () => {
+    const confirm = window.confirm(
+      "Are you sure, you want to remove the contact?"
+    );
+    if (confirm) {
+      setContacts((contacts) => {
+        const clonedContacts = cloneDeep(contacts);
+        clonedContacts.splice(id, 1);
+        return clonedContacts;
+      });
+    }
+  };
+
   return (
     <li>
       {isFormActive ? (
         <EditContact
-          id={id}
-          name={name}
-          phone={phone}
-          email={email}
+          {...props}
           setContacts={setContacts}
           setFormActive={setFormActive}
         />
@@ -24,7 +35,7 @@ const Contact = ({ setContacts, ...props }) => {
           </div>
           <div>{phone}</div>
           <button onClick={() => setFormActive(true)}>Edit</button>
-          <button>Remove</button>
+          <button onClick={removeContact}>Remove</button>
         </React.Fragment>
       )}
     </li>

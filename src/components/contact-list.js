@@ -9,7 +9,7 @@ const ContactList = ({ contacts, setContacts }) => {
           <Contact
             key={contact.name}
             {...contact}
-            id={index} // Unique identifier to update the contact
+            id={index}
             setContacts={setContacts}
           />
         );
