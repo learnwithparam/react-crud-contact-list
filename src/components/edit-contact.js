@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import cloneDeep from "lodash/cloneDeep";
+import FormInput from "./form-input";
 
 const EditContact = ({
   name = "",
@@ -53,45 +54,35 @@ const EditContact = ({
   return (
     <React.Fragment>
       <form onSubmit={onSubmit}>
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            value={form.name}
-            onChange={onChange}
-            type="text"
-            placeholder="Contact name"
-            name="name"
-            id="name"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="phone">Phone</label>
-          <input
-            value={form.phone}
-            onChange={onChange}
-            type="text"
-            placeholder="Contact phone"
-            name="phone"
-            id="phone"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            value={form.email}
-            onChange={onChange}
-            type="email"
-            placeholder="Contact email"
-            name="email"
-            id="email"
-            required
-          />
-        </div>
+        <FormInput
+          type="text"
+          label="Name"
+          value={form.name}
+          onChange={onChange}
+          placeholder="Contact name"
+          required
+        />
+        <FormInput
+          type="text"
+          label="Phone"
+          value={form.phone}
+          onChange={onChange}
+          placeholder="Contact phone"
+          required
+        />
+        <FormInput
+          type="email"
+          label="Email"
+          value={form.email}
+          onChange={onChange}
+          placeholder="Contact email"
+          required
+        />
         <button type="submit">Save</button>
+        <button type="button" onClick={onDiscard}>
+          Discard
+        </button>
       </form>
-      <button onClick={onDiscard}>Discard</button>
     </React.Fragment>
   );
 };

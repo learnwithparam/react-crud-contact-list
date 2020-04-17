@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FormInput from "./form-input";
 
 const AddContactForm = ({ setContacts, setFormActive }) => {
   const [name, setName] = useState("");
@@ -41,45 +42,35 @@ const AddContactForm = ({ setContacts, setFormActive }) => {
   return (
     <React.Fragment>
       <form onSubmit={onSubmit}>
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            placeholder="Contact name"
-            name="name"
-            id="name"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="phone">Phone</label>
-          <input
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            type="text"
-            placeholder="Contact phone"
-            name="phone"
-            id="phone"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="Contact email"
-            name="email"
-            id="email"
-            required
-          />
-        </div>
+        <FormInput
+          type="text"
+          label="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Contact name"
+          required
+        />
+        <FormInput
+          type="text"
+          label="Phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="Contact phone"
+          required
+        />
+        <FormInput
+          type="email"
+          label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Contact email"
+          required
+        />
         <button type="submit">Save contact</button>
+        <button type="button" onClick={onDiscard}>
+          Discard
+        </button>
       </form>
-      <button onClick={onDiscard}>Discard</button>
     </React.Fragment>
   );
 };
