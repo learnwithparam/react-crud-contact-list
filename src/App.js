@@ -21,7 +21,7 @@ function App() {
   return (
     <section>
       <AddContact setContacts={setContacts} />
-      <ContactList contacts={contacts} />
+      <ContactList contacts={contacts} setContacts={setContacts} />
     </section>
   );
 }

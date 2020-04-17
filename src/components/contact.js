@@ -1,7 +1,8 @@
 import React from "react";
+import EditContact from "./edit-contact";
 
-const Contact = (props) => {
-  const { name, email, phone } = props;
+const Contact = ({ setContacts, ...props }) => {
+  const { name, email, phone, id } = props;
 
   return (
     <li>
@@ -10,7 +11,13 @@ const Contact = (props) => {
         <strong>{email}</strong>
       </div>
       <div>{phone}</div>
-      <button>Edit</button>
+      <EditContact
+        id={id}
+        name={name}
+        phone={phone}
+        email={email}
+        setContacts={setContacts}
+      />
       <button>Remove</button>
     </li>
   );

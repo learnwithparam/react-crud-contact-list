@@ -1,33 +1,34 @@
 import React, { useState } from "react";
+import cloneDeep from "lodash/cloneDeep";
 
-const AddContactForm = ({ setContacts, setFormActive }) => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+const EditContactForm = ({
+  name = "",
+  phone = "",
+  email = "",
+  id = 0,
+  setContacts,
+  setFormActive,
+}) => {
+  const [form, setForm] = useState({ name, phone, email });
 
   const resetForm = () => {
-    // Reset form values
-    setName("");
-    setPhone("");
-    setEmail("");
-
-    // Close the form after saving new contact
     setFormActive(false);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
+    const { name, email, phone } = form;
     if (name && email && phone) {
+      // Save the edited content
       setContacts((contacts) => {
-        return [
-          {
-            name,
-            phone,
-            email,
-          },
-          ...contacts,
-        ];
+        const clonedContacts = cloneDeep(contacts);
+        clonedContacts[id] = {
+          name,
+          email,
+          phone,
+        };
+        return clonedContacts;
       });
     }
 
@@ -38,13 +39,24 @@ const AddContactForm = ({ setContacts, setFormActive }) => {
     resetForm();
   };
 
+  const onChange = (e) => {
+    const key = e.target.name;
+    const value = e.target.value;
+    setForm((previousFormValue) => {
+      return {
+        ...previousFormValue,
+        [key]: value,
+      };
+    });
+  };
+
   return (
     <form onSubmit={onSubmit}>
       <div>
         <label htmlFor="name">Name</label>
         <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={form.name}
+          onChange={onChange}
           type="text"
           placeholder="Contact name"
           name="name"
@@ -55,8 +67,8 @@ const AddContactForm = ({ setContacts, setFormActive }) => {
       <div>
         <label htmlFor="phone">Phone</label>
         <input
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          value={form.phone}
+          onChange={onChange}
           type="text"
           placeholder="Contact phone"
           name="phone"
@@ -67,8 +79,8 @@ const AddContactForm = ({ setContacts, setFormActive }) => {
       <div>
         <label htmlFor="email">Email</label>
         <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={form.email}
+          onChange={onChange}
           type="email"
           placeholder="Contact email"
           name="email"
@@ -76,27 +88,24 @@ const AddContactForm = ({ setContacts, setFormActive }) => {
           required
         />
       </div>
-      <button type="submit">Save contact</button>
+      <button type="submit">Save</button>
       <button onClick={onDiscard}>Discard</button>
     </form>
   );
 };
 
-const AddContact = ({ setContacts }) => {
+const EditContact = (props) => {
   const [isFormActive, setFormActive] = useState(false);
 
   return (
     <React.Fragment>
       {isFormActive ? (
-        <AddContactForm
-          setContacts={setContacts}
-          setFormActive={setFormActive}
-        />
+        <EditContactForm {...props} setFormActive={setFormActive} />
       ) : (
-        <button onClick={() => setFormActive(true)}>Add new contact</button>
+        <button onClick={() => setFormActive(true)}>Edit</button>
       )}
     </React.Fragment>
   );
 };
 
-export default AddContact;
+export default EditContact;
