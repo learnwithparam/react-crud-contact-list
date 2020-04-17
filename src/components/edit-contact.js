@@ -13,6 +13,7 @@ const EditContact = ({
   const [form, setForm] = useState({ name, phone, email });
 
   const resetForm = () => {
+    setForm({ name: "", phone: "", email: "" });
     setFormActive(false);
   };
 
