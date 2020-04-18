@@ -5,7 +5,11 @@ const Contact = ({ dispatch, ...props }) => {
   const { name, email, phone, id } = props;
   const [isFormActive, setFormActive] = useState(false);
 
-  const removeContact = () => {
+  const onEdit = () => {
+    setFormActive(true);
+  };
+
+  const onRemove = () => {
     const confirm = window.confirm(
       "Are you sure, you want to remove the contact?"
     );
@@ -29,8 +33,8 @@ const Contact = ({ dispatch, ...props }) => {
             <strong>{email}</strong>
           </div>
           <div>{phone}</div>
-          <button onClick={() => setFormActive(true)}>Edit</button>
-          <button onClick={removeContact}>Remove</button>
+          <button onClick={onEdit}>Edit</button>
+          <button onClick={onRemove}>Remove</button>
         </React.Fragment>
       )}
     </li>
