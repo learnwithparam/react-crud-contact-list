@@ -1,7 +1,5 @@
 import React, { useReducer } from "react";
 import uniqueId from "lodash/uniqueId";
-import cloneDeep from "lodash/cloneDeep";
-import findIndex from "lodash/findIndex";
 import ContactList from "./components/contact-list";
 import AddContact from "./components/add-contact";
 
@@ -32,21 +30,22 @@ const reducer = (state, action) => {
       ];
     }
     case "EDIT_CONTACT": {
-      const { id, ...submitData } = action.payload;
-      const clonedContacts = cloneDeep(state);
-      const index = findIndex(clonedContacts, { id });
-      clonedContacts[index] = {
-        ...clonedContacts[index],
-        ...submitData,
-      };
-      return clonedContacts;
+      const { id, ...formData } = action.payload;
+      const updatedContacts = state.map((contact) => {
+        if (contact.id === id) {
+          return {
+            id,
+            ...formData,
+          };
+        }
+        return contact;
+      });
+      return [...updatedContacts];
     }
     case "REMOVE_CONTACT": {
       const { id } = action.payload;
-      const clonedContacts = cloneDeep(state);
-      const index = findIndex(clonedContacts, { id });
-      clonedContacts.splice(index, 1);
-      return clonedContacts;
+      const updatedContacts = state.filter((contact) => contact.id !== id);
+      return [...updatedContacts];
     }
     default:
       return state;
