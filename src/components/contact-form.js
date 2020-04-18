@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import FormInput from "./form-input";
+import useContactForm from "./use-contact-form";
 
 const ContactForm = ({
   name = "",
@@ -9,10 +10,14 @@ const ContactForm = ({
   setFormActive,
   ...props
 }) => {
-  const [formValues, setFormValues] = useState({ name, phone, email });
+  const [formValues, dispatchForm] = useContactForm({
+    name,
+    phone,
+    email,
+  });
 
   const resetForm = () => {
-    setFormValues({ name: "", phone: "", email: "" });
+    dispatchForm({ type: "RESET" });
     setFormActive(false);
   };
 
@@ -34,12 +39,7 @@ const ContactForm = ({
   const onChange = (e) => {
     const key = e.target.name;
     const value = e.target.value;
-    setFormValues((previousFormValues) => {
-      return {
-        ...previousFormValues,
-        [key]: value,
-      };
-    });
+    dispatchForm({ type: "UPDATE", payload: { [key]: value } });
   };
 
   return (
