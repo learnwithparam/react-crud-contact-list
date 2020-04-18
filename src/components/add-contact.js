@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import uniqueId from "lodash/uniqueId";
 import ContactForm from "./contact-form";
 
 const AddContactForm = ({ setContacts, ...props }) => {
   const onSubmit = (submitData) => {
-    setContacts((contacts) => {
-      return [
-        {
-          id: uniqueId(),
-          ...submitData,
-        },
-        ...contacts,
-      ];
-    });
+    // Dispatch add contact
   };
 
   return (

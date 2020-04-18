@@ -12,12 +12,7 @@ const Contact = ({ setContacts, ...props }) => {
       "Are you sure, you want to remove the contact?"
     );
     if (confirm) {
-      setContacts((contacts) => {
-        const clonedContacts = cloneDeep(contacts);
-        const index = findIndex(clonedContacts, { id });
-        clonedContacts.splice(index, 1);
-        return clonedContacts;
-      });
+      // Remove dispatch comes here
     }
   };
 

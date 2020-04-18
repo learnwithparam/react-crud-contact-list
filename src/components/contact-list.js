@@ -4,7 +4,7 @@ import Contact from "./contact";
 const ContactList = ({ contacts, setContacts }) => {
   return (
     <ol>
-      {contacts.map((contact, index) => {
+      {contacts.map((contact) => {
         return (
           <Contact key={contact.id} {...contact} setContacts={setContacts} />
         );
