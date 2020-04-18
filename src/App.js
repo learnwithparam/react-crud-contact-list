@@ -1,25 +1,13 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import uniqueId from "lodash/uniqueId";
 import ContactList from "./components/contact-list";
 import AddContact from "./components/add-contact";
 
-const INITIAL_CONTACTS = [
-  {
-    id: uniqueId(),
-    name: "Vennila",
-    phone: "+372 5993789",
-    email: "venil.par@gmail.com",
-  },
-  {
-    id: uniqueId(),
-    name: "Afrin",
-    phone: "+372 5663421",
-    email: "afrin.ven@gmail.com",
-  },
-];
-
 const reducer = (state, action) => {
   switch (action.type) {
+    case "INIT": {
+      return [...action.payload];
+    }
     case "ADD_CONTACT": {
       return [
         {
@@ -53,7 +41,20 @@ const reducer = (state, action) => {
 };
 
 function App() {
-  const [contacts, dispatch] = useReducer(reducer, INITIAL_CONTACTS);
+  const [contacts, dispatch] = useReducer(reducer, []);
+
+  // Initial contacts loaded from localStorage
+  useEffect(() => {
+    if (localStorage.getItem("contacts")) {
+      const localContacts = JSON.parse(localStorage.getItem("contacts"));
+      dispatch({ type: "INIT", payload: localContacts });
+    }
+  }, []); // Load only once after the component mounts
+
+  // Save contacts data to localStorage when contacts state change
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   return (
     <section>
