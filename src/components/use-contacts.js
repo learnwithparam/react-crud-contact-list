@@ -1,5 +1,6 @@
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import uniqueId from "lodash/uniqueId";
+import useContactsStorage from "./use-contacts-storage";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,19 +41,8 @@ const reducer = (state, action) => {
 
 const useContacts = () => {
   const [contacts, dispatch] = useReducer(reducer, []);
-
-  // Initial contacts loaded from localStorage
-  useEffect(() => {
-    if (localStorage.getItem("contacts")) {
-      const localContacts = JSON.parse(localStorage.getItem("contacts"));
-      dispatch({ type: "INIT", payload: localContacts });
-    }
-  }, []); // Load only once after the component mounts
-
-  // Save contacts data to localStorage when contacts state change
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
+  // Save and retrieve happens here
+  useContactsStorage({ key: "contacts", contacts, dispatch });
 
   return [contacts, dispatch];
 };
