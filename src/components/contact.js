@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import cloneDeep from "lodash/cloneDeep";
-import findIndex from "lodash/findIndex";
 import EditContact from "./edit-contact";
 
-const Contact = ({ setContacts, ...props }) => {
+const Contact = ({ dispatch, ...props }) => {
   const { name, email, phone, id } = props;
   const [isFormActive, setFormActive] = useState(false);
 
@@ -12,7 +10,7 @@ const Contact = ({ setContacts, ...props }) => {
       "Are you sure, you want to remove the contact?"
     );
     if (confirm) {
-      // Remove dispatch comes here
+      dispatch({ type: "REMOVE_CONTACT", payload: { id } });
     }
   };
 
@@ -21,7 +19,7 @@ const Contact = ({ setContacts, ...props }) => {
       {isFormActive ? (
         <EditContact
           {...props}
-          setContacts={setContacts}
+          dispatch={dispatch}
           setFormActive={setFormActive}
         />
       ) : (

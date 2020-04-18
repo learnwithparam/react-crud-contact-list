@@ -1,9 +1,9 @@
 import React from "react";
 import ContactForm from "./contact-form";
 
-const EditContact = ({ id, setContacts, ...props }) => {
+const EditContact = ({ id, dispatch, ...props }) => {
   const onSubmit = (submitData) => {
-    // Edit dispatch comes here
+    dispatch({ type: "EDIT_CONTACT", payload: { id, ...submitData } });
   };
 
   return <ContactForm title={"Edit contact"} onSubmit={onSubmit} {...props} />;

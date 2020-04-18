@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import ContactForm from "./contact-form";
 
-const AddContactForm = ({ setContacts, ...props }) => {
+const AddContactForm = ({ dispatch, ...props }) => {
   const onSubmit = (submitData) => {
-    // Dispatch add contact
+    dispatch({ type: "ADD_CONTACT", payload: { ...submitData } });
   };
 
   return (
@@ -11,16 +11,13 @@ const AddContactForm = ({ setContacts, ...props }) => {
   );
 };
 
-const AddContact = ({ setContacts }) => {
+const AddContact = ({ dispatch }) => {
   const [isFormActive, setFormActive] = useState(false);
 
   return (
     <React.Fragment>
       {isFormActive ? (
-        <AddContactForm
-          setContacts={setContacts}
-          setFormActive={setFormActive}
-        />
+        <AddContactForm dispatch={dispatch} setFormActive={setFormActive} />
       ) : (
         <button onClick={() => setFormActive(true)}>Add new contact</button>
       )}

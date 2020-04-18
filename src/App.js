@@ -23,22 +23,21 @@ const INITIAL_CONTACTS = [
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_CONTACT": {
-      const { data } = action.payload;
       return [
         {
           id: uniqueId(),
-          ...data,
+          ...action.payload,
         },
         ...state,
       ];
     }
     case "EDIT_CONTACT": {
-      const { id, data } = action.payload;
+      const { id, ...submitData } = action.payload;
       const clonedContacts = cloneDeep(state);
       const index = findIndex(clonedContacts, { id });
       clonedContacts[index] = {
         ...clonedContacts[index],
-        ...data,
+        ...submitData,
       };
       return clonedContacts;
     }
@@ -59,8 +58,8 @@ function App() {
 
   return (
     <section>
-      <AddContact setContacts={dispatch} />
-      <ContactList contacts={contacts} setContacts={dispatch} />
+      <AddContact dispatch={dispatch} />
+      <ContactList contacts={contacts} dispatch={dispatch} />
     </section>
   );
 }
