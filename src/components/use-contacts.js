@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import uniqueId from "lodash/uniqueId";
+import cuid from "cuid";
 import useContactsStorage from "./use-contacts-storage";
 
 const reducer = (state, action) => {
@@ -10,7 +10,7 @@ const reducer = (state, action) => {
     case "ADD_CONTACT": {
       return [
         {
-          id: uniqueId(),
+          id: cuid(),
           ...action.payload,
         },
         ...state,
