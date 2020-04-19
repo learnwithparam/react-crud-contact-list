@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 
-const useContactsStorage = ({ key, contacts, dispatch }) => {
+const useContactsStorage = ({ key, contacts, addContacts }) => {
   // Initial contacts loaded from localStorage
   useEffect(() => {
     if (localStorage.getItem(key)) {
       const payload = JSON.parse(localStorage.getItem(key));
-      dispatch({ type: "INIT", payload });
+      addContacts(payload);
     }
-  }, [key, dispatch]); // Load only once after the component mounts
+  }, [key, addContacts]); // Load only once after the component mounts
 
   // Save contacts data to localStorage when contacts state change
   useEffect(() => {

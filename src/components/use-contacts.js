@@ -1,6 +1,5 @@
 import { useReducer } from "react";
 import cuid from "cuid";
-import useContactsStorage from "./use-contacts-storage";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -41,10 +40,6 @@ const reducer = (state, action) => {
 
 const useContacts = () => {
   const [contacts, dispatch] = useReducer(reducer, []);
-
-  // Save and retrieve happens here
-  useContactsStorage({ key: "contacts", contacts, dispatch });
-
   return [contacts, dispatch];
 };
 
