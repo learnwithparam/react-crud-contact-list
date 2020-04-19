@@ -4,8 +4,8 @@ const useContactsStorage = ({ key, contacts, dispatch }) => {
   // Initial contacts loaded from localStorage
   useEffect(() => {
     if (localStorage.getItem(key)) {
-      const localContacts = JSON.parse(localStorage.getItem(key));
-      dispatch({ type: "INIT", payload: localContacts });
+      const payload = JSON.parse(localStorage.getItem(key));
+      dispatch({ type: "INIT", payload });
     }
   }, [key, dispatch]); // Load only once after the component mounts
 

@@ -41,6 +41,7 @@ const reducer = (state, action) => {
 
 const useContacts = () => {
   const [contacts, dispatch] = useReducer(reducer, []);
+
   // Save and retrieve happens here
   useContactsStorage({ key: "contacts", contacts, dispatch });
 

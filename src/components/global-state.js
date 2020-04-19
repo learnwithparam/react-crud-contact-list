@@ -20,16 +20,16 @@ export const useGlobalStore = () => {
 const GlobalProvider = ({ children }) => {
   const [contacts, dispatch] = useContacts();
 
+  const addContact = (payload) => {
+    dispatch({ type: "ADD_CONTACT", payload });
+  };
+
+  const editContact = (payload) => {
+    dispatch({ type: "EDIT_CONTACT", payload });
+  };
+
   const removeContact = (id) => {
     dispatch({ type: "REMOVE_CONTACT", payload: { id } });
-  };
-
-  const editContact = (contact) => {
-    dispatch({ type: "EDIT_CONTACT", payload: contact });
-  };
-
-  const addContact = (contact) => {
-    dispatch({ type: "ADD_CONTACT", payload: contact });
   };
 
   return (
