@@ -3,7 +3,7 @@ import EditContact from "./edit-contact";
 import { useGlobalStore } from "./global-state";
 
 const Contact = (props) => {
-  const { dispatch } = useGlobalStore();
+  const { removeContact } = useGlobalStore();
   const { name, email, phone, id } = props;
   const [isFormActive, setFormActive] = useState(false);
 
@@ -16,7 +16,7 @@ const Contact = (props) => {
       "Are you sure, you want to remove the contact?"
     );
     if (confirm) {
-      dispatch({ type: "REMOVE_CONTACT", payload: { id } });
+      removeContact(id);
     }
   };
 

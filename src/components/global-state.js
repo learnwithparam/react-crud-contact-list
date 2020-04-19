@@ -20,8 +20,22 @@ export const useGlobalStore = () => {
 const GlobalProvider = ({ children }) => {
   const [contacts, dispatch] = useContacts();
 
+  const removeContact = (id) => {
+    dispatch({ type: "REMOVE_CONTACT", payload: { id } });
+  };
+
+  const editContact = (contact) => {
+    dispatch({ type: "EDIT_CONTACT", payload: contact });
+  };
+
+  const addContact = (contact) => {
+    dispatch({ type: "ADD_CONTACT", payload: contact });
+  };
+
   return (
-    <GlobalContext.Provider value={{ contacts, dispatch }}>
+    <GlobalContext.Provider
+      value={{ contacts, removeContact, editContact, addContact }}
+    >
       {children}
     </GlobalContext.Provider>
   );

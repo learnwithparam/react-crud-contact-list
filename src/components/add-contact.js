@@ -3,10 +3,10 @@ import ContactForm from "./contact-form";
 import { useGlobalStore } from "./global-state";
 
 const AddContactForm = (props) => {
-  const { dispatch } = useGlobalStore();
+  const { addContact } = useGlobalStore();
 
   const onSubmit = (submitData) => {
-    dispatch({ type: "ADD_CONTACT", payload: { ...submitData } });
+    addContact({ ...submitData });
   };
 
   return (
@@ -14,7 +14,7 @@ const AddContactForm = (props) => {
   );
 };
 
-const AddContact = ({ dispatch }) => {
+const AddContact = () => {
   const [isFormActive, setFormActive] = useState(false);
 
   return (

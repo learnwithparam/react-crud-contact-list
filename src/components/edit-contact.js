@@ -3,10 +3,10 @@ import ContactForm from "./contact-form";
 import { useGlobalStore } from "./global-state";
 
 const EditContact = ({ id, ...props }) => {
-  const { dispatch } = useGlobalStore();
+  const { editContact } = useGlobalStore();
 
   const onSubmit = (submitData) => {
-    dispatch({ type: "EDIT_CONTACT", payload: { id, ...submitData } });
+    editContact({ id, ...submitData });
   };
 
   return <ContactForm title={"Edit contact"} onSubmit={onSubmit} {...props} />;
