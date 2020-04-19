@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ContactForm from "./contact-form";
+import { GlobalContext } from "./global-state";
 
-const AddContactForm = ({ dispatch, ...props }) => {
+const AddContactForm = (props) => {
+  const { dispatch } = useContext(GlobalContext);
+
   const onSubmit = (submitData) => {
     dispatch({ type: "ADD_CONTACT", payload: { ...submitData } });
   };
@@ -17,7 +20,7 @@ const AddContact = ({ dispatch }) => {
   return (
     <React.Fragment>
       {isFormActive ? (
-        <AddContactForm dispatch={dispatch} setFormActive={setFormActive} />
+        <AddContactForm setFormActive={setFormActive} />
       ) : (
         <button onClick={() => setFormActive(true)}>Add new contact</button>
       )}

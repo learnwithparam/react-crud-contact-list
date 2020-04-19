@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Contact from "./contact";
+import { GlobalContext } from "./global-state";
 
 const EmptyContactList = () => {
   return <div>No contacts yet</div>;
 };
 
-const ContactList = ({ contacts, dispatch }) => {
+const ContactList = () => {
+  const { contacts } = useContext(GlobalContext);
+
   return (
     <React.Fragment>
       <ol>
         {contacts.map((contact) => {
-          return <Contact key={contact.id} {...contact} dispatch={dispatch} />;
+          return <Contact key={contact.id} {...contact} />;
         })}
       </ol>
       {contacts.length === 0 && <EmptyContactList />}

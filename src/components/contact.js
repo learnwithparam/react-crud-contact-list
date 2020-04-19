@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import EditContact from "./edit-contact";
+import { GlobalContext } from "./global-state";
 
-const Contact = ({ dispatch, ...props }) => {
+const Contact = (props) => {
+  const { dispatch } = useContext(GlobalContext);
   const { name, email, phone, id } = props;
   const [isFormActive, setFormActive] = useState(false);
 
@@ -21,11 +23,7 @@ const Contact = ({ dispatch, ...props }) => {
   return (
     <li>
       {isFormActive ? (
-        <EditContact
-          {...props}
-          dispatch={dispatch}
-          setFormActive={setFormActive}
-        />
+        <EditContact {...props} setFormActive={setFormActive} />
       ) : (
         <React.Fragment>
           <h3>{name}</h3>

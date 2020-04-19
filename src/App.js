@@ -1,16 +1,14 @@
 import React from "react";
 import ContactList from "./components/contact-list";
 import AddContact from "./components/add-contact";
-import useContacts from "./components/use-contacts";
+import GlobalProvider from "./components/global-state";
 
 function App() {
-  const [contacts, dispatch] = useContacts();
-
   return (
-    <section>
-      <AddContact dispatch={dispatch} />
-      <ContactList contacts={contacts} dispatch={dispatch} />
-    </section>
+    <GlobalProvider>
+      <AddContact />
+      <ContactList />
+    </GlobalProvider>
   );
 }
 
