@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import ContactForm from "./contact-form";
-import { GlobalContext } from "./global-state";
+import { useGlobalStore } from "./global-state";
 
 const EditContact = ({ id, ...props }) => {
-  const { dispatch } = useContext(GlobalContext);
+  const { dispatch } = useGlobalStore();
 
   const onSubmit = (submitData) => {
     dispatch({ type: "EDIT_CONTACT", payload: { id, ...submitData } });

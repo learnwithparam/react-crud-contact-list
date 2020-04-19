@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import EditContact from "./edit-contact";
-import { GlobalContext } from "./global-state";
+import { useGlobalStore } from "./global-state";
 
 const Contact = (props) => {
-  const { dispatch } = useContext(GlobalContext);
+  const { dispatch } = useGlobalStore();
   const { name, email, phone, id } = props;
   const [isFormActive, setFormActive] = useState(false);
 

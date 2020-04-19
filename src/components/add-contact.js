@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import ContactForm from "./contact-form";
-import { GlobalContext } from "./global-state";
+import { useGlobalStore } from "./global-state";
 
 const AddContactForm = (props) => {
-  const { dispatch } = useContext(GlobalContext);
+  const { dispatch } = useGlobalStore();
 
   const onSubmit = (submitData) => {
     dispatch({ type: "ADD_CONTACT", payload: { ...submitData } });

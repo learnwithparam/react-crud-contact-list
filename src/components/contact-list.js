@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import Contact from "./contact";
-import { GlobalContext } from "./global-state";
+import { useGlobalStore } from "./global-state";
 
 const EmptyContactList = () => {
   return <div>No contacts yet</div>;
 };
 
 const ContactList = () => {
-  const { contacts } = useContext(GlobalContext);
+  const { contacts } = useGlobalStore();
 
   return (
     <React.Fragment>
