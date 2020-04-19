@@ -41,12 +41,16 @@ const GlobalProvider = ({ children }) => {
   // Save and retrieve happens here
   useContactsStorage({ key: "contacts", contacts, addContacts });
 
+  const context = {
+    contacts,
+    removeContact,
+    editContact,
+    addContact,
+    addContacts,
+  };
+
   return (
-    <GlobalContext.Provider
-      value={{ contacts, removeContact, editContact, addContact, addContacts }}
-    >
-      {children}
-    </GlobalContext.Provider>
+    <GlobalContext.Provider value={context}>{children}</GlobalContext.Provider>
   );
 };
 
