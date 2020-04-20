@@ -2,13 +2,15 @@ import { useReducer } from "react";
 
 const formReducer = (state, action) => {
   switch (action.type) {
-    case "UPDATE":
+    case "UPDATE": {
       return {
         ...state,
         ...action.payload,
       };
-    case "RESET":
+    }
+    case "RESET": {
       return { name: "", phone: "", email: "" };
+    }
     default:
       return state;
   }

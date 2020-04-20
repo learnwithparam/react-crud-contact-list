@@ -1,7 +1,6 @@
-import React, { useState, Suspense } from "react";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import { useGlobalStore } from "./global-state";
-
-const EditContact = React.lazy(() => import("./edit-contact"));
 
 const ContactItem = ({ name, email, phone }) => {
   return (
@@ -18,12 +17,12 @@ const ContactItem = ({ name, email, phone }) => {
 const MemoizedContactItem = React.memo(ContactItem);
 
 const Contact = (props) => {
+  const history = useHistory();
   const { removeContact } = useGlobalStore();
   const { id } = props;
-  const [isFormActive, setFormActive] = useState(false);
 
   const onEdit = () => {
-    setFormActive(true);
+    history.push(`/edit/${id}`);
   };
 
   const onRemove = () => {
@@ -37,17 +36,11 @@ const Contact = (props) => {
 
   return (
     <li>
-      {isFormActive ? (
-        <Suspense fallback={<div>Loading...</div>}>
-          <EditContact {...props} setFormActive={setFormActive} />
-        </Suspense>
-      ) : (
-        <React.Fragment>
-          <MemoizedContactItem {...props} />
-          <button onClick={onEdit}>Edit</button>
-          <button onClick={onRemove}>Remove</button>
-        </React.Fragment>
-      )}
+      <React.Fragment>
+        <MemoizedContactItem {...props} />
+        <button onClick={onEdit}>Edit</button>
+        <button onClick={onRemove}>Remove</button>
+      </React.Fragment>
     </li>
   );
 };

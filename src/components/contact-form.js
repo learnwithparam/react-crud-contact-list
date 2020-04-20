@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import FormInput from "./form-input";
 import useContactForm from "./use-contact-form";
+import { useGlobalStore } from "./global-state";
 
-const ContactForm = ({
-  name = "",
-  phone = "",
-  email = "",
-  title,
-  setFormActive,
-  ...props
-}) => {
+const ContactForm = ({ id, title, ...props }) => {
+  const history = useHistory();
+  const { contacts } = useGlobalStore();
   const [formValues, dispatchForm] = useContactForm({
-    name,
-    phone,
-    email,
+    name: "",
+    phone: "",
+    email: "",
   });
+
+  useEffect(() => {
+    const contact = contacts.find((contact) => contact.id === id);
+    if (contact !== undefined) {
+      const { name, email, phone } = contact;
+      dispatchForm({ type: "UPDATE", payload: { name, email, phone } });
+    }
+  }, [dispatchForm, contacts, id]);
 
   const resetForm = () => {
     dispatchForm({ type: "RESET" });
-    setFormActive(false);
+    history.push("/");
   };
 
   const onSubmit = (e) => {
