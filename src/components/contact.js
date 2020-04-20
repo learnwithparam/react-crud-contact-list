@@ -3,7 +3,7 @@ import { useGlobalStore } from "./global-state";
 
 const EditContact = React.lazy(() => import("./edit-contact"));
 
-const UnMemoizedContactItem = ({ name, email, phone }) => {
+const ContactItem = ({ name, email, phone }) => {
   return (
     <React.Fragment>
       <h3>{name}</h3>
@@ -15,7 +15,7 @@ const UnMemoizedContactItem = ({ name, email, phone }) => {
   );
 };
 
-const ContactItem = React.memo(UnMemoizedContactItem);
+const MemoizedContactItem = React.memo(ContactItem);
 
 const Contact = (props) => {
   const { removeContact } = useGlobalStore();
@@ -43,7 +43,7 @@ const Contact = (props) => {
         </Suspense>
       ) : (
         <React.Fragment>
-          <ContactItem {...props} />
+          <MemoizedContactItem {...props} />
           <button onClick={onEdit}>Edit</button>
           <button onClick={onRemove}>Remove</button>
         </React.Fragment>
