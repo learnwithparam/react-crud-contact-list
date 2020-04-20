@@ -1,4 +1,9 @@
-import React, { createContext, useContext, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useCallback,
+  useEffect,
+} from "react";
 import useContacts from "./use-contacts";
 import useContactsStorage from "./use-contacts-storage";
 
@@ -26,17 +31,26 @@ const GlobalProvider = ({ children }) => {
     [dispatch]
   );
 
-  const addContact = (payload) => {
-    dispatch({ type: "ADD_CONTACT", payload });
-  };
+  const addContact = useCallback(
+    (payload) => {
+      dispatch({ type: "ADD_CONTACT", payload });
+    },
+    [dispatch]
+  );
 
-  const editContact = (payload) => {
-    dispatch({ type: "EDIT_CONTACT", payload });
-  };
+  const editContact = useCallback(
+    (payload) => {
+      dispatch({ type: "EDIT_CONTACT", payload });
+    },
+    [dispatch]
+  );
 
-  const removeContact = (id) => {
-    dispatch({ type: "REMOVE_CONTACT", payload: { id } });
-  };
+  const removeContact = useCallback(
+    (id) => {
+      dispatch({ type: "REMOVE_CONTACT", payload: { id } });
+    },
+    [dispatch]
+  );
 
   // Save and retrieve happens here
   useContactsStorage({ key: "contacts", contacts, addContacts });
@@ -48,6 +62,14 @@ const GlobalProvider = ({ children }) => {
     addContact,
     addContacts,
   };
+
+  useEffect(() => {
+    console.log("editContact recreated");
+  }, [editContact]);
+
+  useEffect(() => {
+    console.log("addContacts not recreated");
+  }, [addContacts]);
 
   return (
     <GlobalContext.Provider value={context}>{children}</GlobalContext.Provider>
