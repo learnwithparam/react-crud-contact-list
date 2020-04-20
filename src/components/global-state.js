@@ -3,6 +3,7 @@ import React, {
   useContext,
   useCallback,
   useEffect,
+  useMemo,
 } from "react";
 import useContacts from "./use-contacts";
 import useContactsStorage from "./use-contacts-storage";
@@ -55,21 +56,22 @@ const GlobalProvider = ({ children }) => {
   // Save and retrieve happens here
   useContactsStorage({ key: "contacts", contacts, addContacts });
 
-  const context = {
-    contacts,
-    removeContact,
-    editContact,
-    addContact,
-    addContacts,
-  };
+  const context = useMemo(
+    () => ({
+      contacts,
+      removeContact,
+      editContact,
+      addContact,
+      addContacts,
+    }),
+    [contacts, removeContact, editContact, addContact, addContacts]
+  );
 
   useEffect(() => {
-    console.log("editContact recreated");
-  }, [editContact]);
-
-  useEffect(() => {
-    console.log("addContacts not recreated");
-  }, [addContacts]);
+    console.log(
+      "context re-created without anything changed in global provider"
+    );
+  }, [context]);
 
   return (
     <GlobalContext.Provider value={context}>{children}</GlobalContext.Provider>
