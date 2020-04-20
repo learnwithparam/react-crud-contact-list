@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useCallback,
-  useEffect,
-  useMemo,
-} from "react";
+import React, { createContext, useContext, useCallback, useMemo } from "react";
 import useContacts from "./use-contacts";
 import useContactsStorage from "./use-contacts-storage";
 
@@ -66,12 +60,6 @@ const GlobalProvider = ({ children }) => {
     }),
     [contacts, removeContact, editContact, addContact, addContacts]
   );
-
-  useEffect(() => {
-    console.log(
-      "context re-created without anything changed in global provider"
-    );
-  }, [context]);
 
   return (
     <GlobalContext.Provider value={context}>{children}</GlobalContext.Provider>
