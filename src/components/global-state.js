@@ -1,6 +1,12 @@
-import React, { createContext, useContext, useCallback, useMemo } from "react";
+import React, {
+  createContext,
+  useContext,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
 import useContacts from "./use-contacts";
-import useContactsStorage from "./use-contacts-storage";
+import { getContacts } from "../api";
 
 const INITIAL_STATE = {};
 
@@ -47,8 +53,16 @@ const GlobalProvider = ({ children }) => {
     [dispatch]
   );
 
-  // Save and retrieve happens here
-  useContactsStorage({ key: "contacts", contacts, addContacts });
+  useEffect(() => {
+    // Load the contacts from the API to the store
+    const fetchContacts = async () => {
+      const contacts = await getContacts();
+      addContacts(contacts);
+    };
+
+    // Call the API and show it
+    fetchContacts();
+  }, [addContacts]);
 
   const context = useMemo(
     () => ({
