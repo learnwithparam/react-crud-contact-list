@@ -5,12 +5,10 @@ import GlobalProvider from "./components/global-state";
 
 function App() {
   return (
-    <>
-      <GlobalProvider>
-        <AddContact />
-        <ContactList />
-      </GlobalProvider>
-    </>
+    <GlobalProvider>
+      <AddContact />
+      <ContactList />
+    </GlobalProvider>
   );
 }
 

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import EditContact from "./edit-contact";
+import React, { useState, Suspense } from "react";
 import { useGlobalStore } from "./global-state";
+
+const EditContact = React.lazy(() => import("./edit-contact"));
 
 const UnMemoizedContactItem = ({ name, email, phone }) => {
   return (
@@ -37,7 +38,9 @@ const Contact = (props) => {
   return (
     <li>
       {isFormActive ? (
-        <EditContact {...props} setFormActive={setFormActive} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <EditContact {...props} setFormActive={setFormActive} />
+        </Suspense>
       ) : (
         <React.Fragment>
           <ContactItem {...props} />
