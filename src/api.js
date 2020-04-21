@@ -5,3 +5,38 @@ export const getContacts = async () => {
   const data = await response.json();
   return data;
 };
+
+const requestPayload = (payload) => {
+  return {
+    body: JSON.stringify({ ...payload }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+};
+
+export const postContacts = async (payload) => {
+  const response = await fetch(`${BASE_URL}/contacts`, {
+    method: "POST",
+    ...requestPayload(payload),
+  });
+  const data = await response.json();
+  return data;
+};
+
+export const putContacts = async ({ id, ...payload }) => {
+  const response = await fetch(`${BASE_URL}/contacts/${id}`, {
+    method: "PUT",
+    ...requestPayload(payload),
+  });
+  const data = await response.json();
+  return data;
+};
+
+export const deleteContacts = async (id) => {
+  const response = await fetch(`${BASE_URL}/contacts/${id}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  return data;
+};

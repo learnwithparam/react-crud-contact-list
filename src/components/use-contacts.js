@@ -1,5 +1,4 @@
 import { useReducer } from "react";
-import cuid from "cuid";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -8,11 +7,10 @@ const reducer = (state, action) => {
     }
     case "ADD_CONTACT": {
       return [
+        ...state,
         {
-          id: cuid(),
           ...action.payload,
         },
-        ...state,
       ];
     }
     case "EDIT_CONTACT": {

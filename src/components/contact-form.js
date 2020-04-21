@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import FormInput from "./form-input";
 import useContactForm from "./use-contact-form";
 import { useGlobalStore } from "./global-state";
 
 const ContactForm = ({ id, title, ...props }) => {
-  const history = useHistory();
   const { contacts } = useGlobalStore();
   const [formValues, dispatchForm] = useContactForm({
     name: "",
@@ -23,7 +21,6 @@ const ContactForm = ({ id, title, ...props }) => {
 
   const resetForm = () => {
     dispatchForm({ type: "RESET" });
-    history.push("/");
   };
 
   const onSubmit = (e) => {

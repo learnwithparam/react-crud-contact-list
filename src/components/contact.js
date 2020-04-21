@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useGlobalStore } from "./global-state";
+import { deleteContacts } from "../api";
 
 const ContactItem = ({ name, email, phone }) => {
   return (
@@ -30,7 +31,10 @@ const Contact = (props) => {
       "Are you sure, you want to remove the contact?"
     );
     if (confirm) {
-      removeContact(id);
+      (async () => {
+        await deleteContacts(id);
+        removeContact(id);
+      })();
     }
   };
 
