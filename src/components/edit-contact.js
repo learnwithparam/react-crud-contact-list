@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ContactForm from "./contact-form";
+import Error from "./error";
 import { useGlobalStore } from "./global-state";
 import { putContacts } from "../api";
 
@@ -11,7 +12,7 @@ const EditContact = (props) => {
   const [error, setError] = useState("");
 
   const onSubmit = (submitData) => {
-    const payload = { ...submitData };
+    const payload = { id, ...submitData };
     (async () => {
       const { data, error } = await putContacts(payload);
       if (error) {
@@ -25,7 +26,7 @@ const EditContact = (props) => {
 
   return (
     <>
-      {error ? <div>{error}</div> : null}
+      {error && <Error message={error} />}
       <ContactForm id={id} title={"Edit contact"} onSubmit={onSubmit} />
     </>
   );
