@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ContactForm from "./contact-form";
 import { useGlobalStore } from "./global-state";
@@ -8,17 +8,27 @@ const EditContact = (props) => {
   const id = props.match.params.id;
   const history = useHistory();
   const { editContact } = useGlobalStore();
+  const [error, setError] = useState("");
 
   const onSubmit = (submitData) => {
-    const payload = { id, ...submitData };
+    const payload = { ...submitData };
     (async () => {
-      const data = await putContacts(payload);
-      editContact(data);
-      history.push("/");
+      const { data, error } = await putContacts(payload);
+      if (error) {
+        setError(error.message);
+      } else {
+        editContact(data);
+        history.push("/");
+      }
     })();
   };
 
-  return <ContactForm id={id} title={"Edit contact"} onSubmit={onSubmit} />;
+  return (
+    <>
+      {error ? <div>{error}</div> : null}
+      <ContactForm id={id} title={"Edit contact"} onSubmit={onSubmit} />
+    </>
+  );
 };
 
 export default EditContact;

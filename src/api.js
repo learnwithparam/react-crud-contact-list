@@ -25,12 +25,20 @@ export const postContacts = async (payload) => {
 };
 
 export const putContacts = async ({ id, ...payload }) => {
-  const response = await fetch(`${BASE_URL}/contacts/${id}`, {
-    method: "PUT",
-    ...requestPayload(payload),
-  });
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(`${BASE_URL}/contacts/${id}`, {
+      method: "PUT",
+      ...requestPayload(payload),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return { data };
+    } else {
+      throw Error(response.statusText);
+    }
+  } catch (error) {
+    return { error };
+  }
 };
 
 export const deleteContacts = async (id) => {
