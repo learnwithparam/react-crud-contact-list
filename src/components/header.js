@@ -3,11 +3,25 @@ import { Link } from "react-router-dom";
 
 const NavLinks = () => {
   return (
-    <ul>
-      <li>
+    <ul
+      style={{
+        display: "flex",
+        listStyle: "none",
+        padding: 0,
+      }}
+    >
+      <li
+        style={{
+          margin: "0 10px",
+        }}
+      >
         <Link to="/">Home</Link>
       </li>
-      <li>
+      <li
+        style={{
+          margin: "0 10px",
+        }}
+      >
         <Link to="/add">Add contact</Link>
       </li>
     </ul>
@@ -16,11 +30,33 @@ const NavLinks = () => {
 
 const Header = () => {
   return (
-    <header>
-      <h3>
-        <a href="/">Conpro</a>
+    <header
+      style={{
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      <h3
+        style={{
+          fontSize: "24px",
+        }}
+      >
+        <a
+          href="/"
+          style={{
+            textDecoration: "none",
+            color: "black",
+          }}
+        >
+          Conpro
+        </a>
       </h3>
-      <nav>
+      <nav
+        style={{
+          marginLeft: "auto",
+        }}
+      >
         <NavLinks />
       </nav>
     </header>

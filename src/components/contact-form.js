@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import FormInput from "./form-input";
 import useContactForm from "./use-contact-form";
 import { useGlobalStore } from "./global-state";
+import styles from "./contact-form.module.css";
 
 const ContactForm = ({ id, title, ...props }) => {
+  const history = useHistory();
   const { contacts } = useGlobalStore();
   const [formValues, dispatchForm] = useContactForm({
     name: "",
@@ -36,6 +39,7 @@ const ContactForm = ({ id, title, ...props }) => {
 
   const onDiscard = () => {
     resetForm();
+    history.push("/");
   };
 
   const onChange = (e) => {
@@ -73,7 +77,11 @@ const ContactForm = ({ id, title, ...props }) => {
           required
         />
         <button type="submit">Save contact</button>
-        <button type="button" onClick={onDiscard}>
+        <button
+          type="button"
+          className={styles.discardButton}
+          onClick={onDiscard}
+        >
           Discard
         </button>
       </form>

@@ -1,4 +1,5 @@
 import React from "react";
+import "./contact.css";
 import { useHistory } from "react-router-dom";
 import { useGlobalStore } from "./global-state";
 import { deleteContacts } from "../api";
@@ -6,8 +7,8 @@ import { deleteContacts } from "../api";
 const ContactItem = ({ name, email, phone }) => {
   return (
     <React.Fragment>
-      <h3>{name}</h3>
-      <div>
+      <h2 className="contact-name">{name}</h2>
+      <div className="contact-email">
         <strong>{email}</strong>
       </div>
       <div>{phone}</div>
@@ -39,11 +40,15 @@ const Contact = (props) => {
   };
 
   return (
-    <li>
+    <li className="contact">
       <React.Fragment>
         <MemoizedContactItem {...props} />
-        <button onClick={onEdit}>Edit</button>
-        <button onClick={onRemove}>Remove</button>
+        <section className="button-group">
+          <button onClick={onEdit}>Edit</button>
+          <button onClick={onRemove} className="remove-button">
+            Remove
+          </button>
+        </section>
       </React.Fragment>
     </li>
   );

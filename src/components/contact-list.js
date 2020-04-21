@@ -11,7 +11,12 @@ const ContactList = () => {
 
   return (
     <React.Fragment>
-      <ol>
+      <ol
+        style={{
+          padding: 0,
+          listStyle: "none",
+        }}
+      >
         {contacts.map((contact) => {
           return <Contact key={contact.id} {...contact} />;
         })}
